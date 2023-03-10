@@ -25,3 +25,18 @@ function startSearch() {
   console.log(`${baseURL}${zipCode}${apiKey}`);
   addWeather(baseURL, zipCode, apiKey)
 }
+
+
+// Async GET Request >>
+// Creating addWeather Function to get data from OpenWeatherMap API
+const addWeather = async (base, zip, key)=>{ 
+    const res = await fetch(base + zip + key); 
+    console.log("Async GET request to get data from OpenWeatherMap API");
+    console.log(res);
+    try {
+      const data = await res.json();
+      return data;
+    } catch(error) {
+      console.log("error", error);
+    }
+  }

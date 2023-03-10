@@ -34,3 +34,20 @@ function sendData (request, response) {
   response.send(projectData);
   console.log(req);
 };
+
+
+//    Add a POST route that adds incoming data to projectData.
+app.post('/add', addData )
+
+function addData (req, res){
+
+  console.log(req.body);
+
+  projectData = {
+   date: request.body.date,
+   temp: request.body.temp,
+   content: request.body.content
+  }
+  response.send(projectData);
+  console.log(projectData)
+}

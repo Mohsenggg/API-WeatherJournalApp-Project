@@ -24,6 +24,12 @@ function startSearch() {
   console.log("Get data from OpenWeatherMap API");
   console.log(`${baseURL}${zipCode}${apiKey}`);
   addWeather(baseURL, zipCode, apiKey)
+  // Then Add API data & User data to the App
+  .then(function(data){
+    // Creating an object with the received data
+    const userData = { date: newDate, temp: data.main.temp, feeling}
+    postData('/add', userData)
+  })
 }
 
 
@@ -40,3 +46,28 @@ const addWeather = async (base, zip, key)=>{
       console.log("error", error);
     }
   }
+
+
+  
+// Async POST Request >>
+// Creating postData Function to add API data & User data to the App 
+const postData = async ( url = '', data = {})=>{
+    console.log("Async POST request to add API data & User data to the App");
+    console.log(data);
+    const response = await fetch(url, {
+      method: 'POST', 
+      mode: 'no-cors',
+      credentials: 'same-origin',
+      headers: {
+        // "Access-Control-Allow-Origin": "*",
+        'Content-Type': 'application/json',},
+      body: JSON.stringify(userData) 
+    });
+      try {
+        const newData = await response.json();
+        console.log(newData);
+        return newData;
+      }catch(error) {
+      console.log("error", error);
+      }
+    }

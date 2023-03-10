@@ -30,6 +30,8 @@ function startSearch() {
     const userData = { date: newDate, temp: data.main.temp, feeling}
     postData('/add', userData)
   })
+    // Then Update UI & Retrieve data from the App
+    .then(()=>update())
 }
 
 
@@ -71,3 +73,23 @@ const postData = async ( url = '', data = {})=>{
       console.log("error", error);
       }
     }
+
+
+
+// Creating update Function to retrieve data from the App.
+const update = async () => {
+    const request = await fetch('/all');
+    console.log("Update Is Done")
+    console.log(request)
+    try {
+      const theData = await request.json()
+      // update weather data values
+      document.getElementById('date').innerHTML = theData.date;
+      document.getElementById('temp').innerHTML = theData.temp;
+      document.getElementById('content').innerHTML = theData.content;
+      return theData;
+    }
+    catch (error){
+      console.log("error", error);
+    }
+  };

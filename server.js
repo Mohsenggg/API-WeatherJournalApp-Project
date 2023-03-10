@@ -10,7 +10,6 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const bodyParser = require('body-parser')
-
 // Cors for cross origin allowance
 const cors = require('cors');
 app.use(cors());
@@ -19,12 +18,3 @@ app.use(express.static('website'));
 
 
 // Setup Server
-
-const port = 8000;
-/* Spin up the server*/
-const server = app.listen(port, listening);
- function listening(){
-    console.log(server);
-    console.log(`Give me a smile :)
-    because I want to tell you that the localhost is running on : ${port}`);
-  };

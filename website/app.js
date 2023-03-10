@@ -1,8 +1,6 @@
-/* Global Variables */
 
 // API key and base URL 
-const baseURL = 'http://api.openweathermap.org/data/2.5/weather?zip=';
-const apiKey = '&appid=4566baf5619ef13feaad45cb723b64d8&units=imperial';
+const apiKey = '4566baf5619ef13feaad45cb723b64d8';
 
 
 // Create a new date instance dynamically with JS
@@ -19,11 +17,13 @@ btn.addEventListener('click', startSearch);
 function startSearch() {
   // Get user values
   const zipCode = document.querySelector('#zip').value; 
-  const feeling = document.querySelector('#feelings').value; 
+  const feeling = document.querySelector('#feelings').value;
+  const baseURL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=${apiKey}&units=imperial`;
+ 
   // Get data from OpenWeatherMap API
   console.log("Get data from OpenWeatherMap API");
-  console.log(`${baseURL}${zipCode}${apiKey}`);
-  addWeather(baseURL, zipCode, apiKey)
+  console.log(baseURL);
+  addWeather(baseURL)
   // Then Add API data & User data to the App
   .then(function(data){
     // Creating an object with the received data
@@ -31,14 +31,14 @@ function startSearch() {
     postData('/add', userData)
   })
     // Then Update UI & Retrieve data from the App
-    .then(()=>update())
+  .then(()=>update())
 }
 
 
 // Async GET Request >>
 // Creating addWeather Function to get data from OpenWeatherMap API
-const addWeather = async (base, zip, key)=>{ 
-    const res = await fetch(base + zip + key); 
+const addWeather = async (baseURL)=>{ 
+    const res = await fetch(baseURL); 
     console.log("Async GET request to get data from OpenWeatherMap API");
     console.log(res);
     try {
